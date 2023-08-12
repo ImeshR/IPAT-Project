@@ -1,5 +1,7 @@
 # IPAT-Project
 
+![image](https://github.com/ImeshR/IPAT-Project/assets/111144332/62b45af6-8114-45c9-8b62-8e78efc8ae84)
+
 ## System Function
 * Student Management
 * Instructor Management
