@@ -1,17 +1,11 @@
 import React from 'react'
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout, Menu } from 'antd';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header,Footer} = Layout;
 
-
-
-const Home = () => {
-    const {
-      token: { colorBgContainer },
-    } = theme.useToken();
-  
-    return (
-      <Layout>
+export default function student_dashboard() {
+  return (
+    <Layout>
         <Header style={{ display: 'flex', alignItems: 'center' }}>
           <div className="demo-logo" />
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}  />
@@ -23,5 +17,3 @@ const Home = () => {
       </Layout>
   )
 }
-
-export default Home
