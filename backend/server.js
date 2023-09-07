@@ -5,6 +5,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import loginController from "./controllers/auth/auth.js";
+import labroomController from "./controllers/labroom/labroom.js";
+import adminController from "./controllers/admin/admin.js";
+import studentController from "./controllers/student/student.js";
+import instructorController from "./controllers/instructor/instructor.js";
 
 const app = express();
 app.use(cors());
@@ -40,6 +44,10 @@ mongoose.connection.on("error", (err) => {
 
 // Routes
 app.use("/api/auth", loginController);
+app.use("/api/labroom", labroomController);
+app.use("/api/admin", adminController);
+app.use("/api/student", studentController);
+app.use("/api/instructor", instructorController);
 
 app.listen(PORT, () => {
   console.log("Connected to Backend");
