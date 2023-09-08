@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Splash from './pages/splash';
-import Login from './pages/Auth/login/login';
-import Signup from './pages/Auth/Signup/Signup';
-import StudentDashboard from './pages/stduent/student_dashboard/student-dashboard';
+import FileHandle from './pages/Filehandle/Filehandle';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,15 +13,12 @@ export default function App() {
   <Routes>
     {/* <Route path="*" element={<Error />} /> */}
     <Route index element={<Splash />} />
-    <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-    <Route path="/signup" element={<Signup />} />
-    <Route path="/student/dashboard" element={<StudentDashboard />} />
+    <Route path="/file" element={<FileHandle/>}/>
 
     {/* <Route
           path='/student/dashboard'
           element={isLoggedIn ? <StudentDashboard /> : <Navigate to="/login" />}
         /> */}
-    
   </Routes>
 </BrowserRouter>
   );
