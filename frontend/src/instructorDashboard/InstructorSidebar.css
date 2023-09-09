@@ -16,20 +16,22 @@
   }
   
   .profile-circle {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 102px;
     background-color: #595b5c;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
   }
   
   .dashboard-title {
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    
   }
   
   .menu-list {

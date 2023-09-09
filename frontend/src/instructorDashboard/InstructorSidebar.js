@@ -3,8 +3,10 @@ import './InstructorSidebar.css';
 
 const InstructorSidebar = () => {
   return (
-    <div className="sidebar-container mt-5">
-      <h1 className="dashboard-title">Lecture Dashboard</h1>
+    <div className="sidebar-container ">
+      <h1 className="dashboard-title" style={{ fontFamily: 'sans-serif'}}>
+  Lecture Dashboard
+</h1>
       <div className="profile-container">
         <div className="profile-circle">
           <i className="fas fa-user-circle text-white"></i>
