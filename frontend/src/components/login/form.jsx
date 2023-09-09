@@ -21,7 +21,8 @@ const FormComponent = () => {
         } else if (response.data.role === 'instructor') {
           message.success('Login successful');
           // Redirect to the instructor dashboard
-          window.location.href = '/instructor/dashboard'; // Adjust the URL as needed
+          const instructorDashboardURL = `/instructordashboard/${response.data.email}`;
+          window.location.href = instructorDashboardURL;
         } else {
           message.error('Login failed. Please check your credentials.');
         } 

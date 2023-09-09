@@ -33,7 +33,7 @@ export default function App() {
     <Route path="/admin/students/management" element={<Students />} />
 
     <Route path="/Sbody" element={<Sbody />} />
-    <Route path="/InstructorDashboard" element={<InstructorDashboard />} />
+    <Route path="/InstructorDashboard/:email" element={<InstructorDashboard />} />
     <Route path="/studnetlabroom" element={<LabroomStd />} />
 
     <Route path="/register" element={<Register />} />
