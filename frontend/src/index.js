@@ -9,10 +9,11 @@ import AdminDashboard from './pages/Admin/dashboard';
 import Instructor from './pages/Admin/instructor';
 import Labroom from './pages/Admin/labroom';
 import Students from './pages/Admin/students';
+import SignIn from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import StudentDashboard from './StudentDashboard/StudentDashboard';
 
-import StudentDashboard from './StudentDashboard/StudentDashboard'
-import SignUp from './pages/auth/SignUp';
-import SignIn from'./pages/auth/SignIn'
+
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -27,11 +28,10 @@ export default function App() {
     <Route path="/admin/instructor/managemnet" element={<Instructor />} />
     <Route path="/admin/labroom/management" element={<Labroom />} />
     <Route path="/admin/students/management" element={<Students />} />
-
+    <Route path="/register" element={<Register />} />
 
     <Route path="/studentdashboard" element={<StudentDashboard />} />
-        <Route path="/SignIn" element={<SignIn />} />
-        <Route path="/SignUp" element={<SignUp />} />
+    <Route path="/login" element={<SignIn />} />
   </Routes>
 </BrowserRouter>
   );
