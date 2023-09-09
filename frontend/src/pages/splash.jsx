@@ -7,7 +7,7 @@ const Splash = () => {
   useEffect(() => {
     // After 3 seconds, navigate to the home page
     const timer = setTimeout(() => {
-      navigate("/login");
+      navigate("/home");
     }, 1600);
 
     // Clean up the timer if the component unmounts
