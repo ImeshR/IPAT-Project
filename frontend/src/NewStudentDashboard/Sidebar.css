@@ -56,3 +56,26 @@
     transition: background-color 0.3s ease, color 0.3s ease, border-bottom 0.3s ease;
   }
   
+
+  /* Style for menu buttons */
+.menu-list a {
+  color: #000000;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the content horizontally */
+  padding: 10px 0; /* Add padding to create space between buttons */
+  transition: background-color 0.3s ease, color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.menu-list a:hover {
+  color: #fff;
+  background-color: #464849;
+  border-bottom: 2px solid #fff;
+}
+
+/* Add a separator line between buttons */
+.menu-list li:not(:last-child) {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px; /* Add space between buttons */
+}
