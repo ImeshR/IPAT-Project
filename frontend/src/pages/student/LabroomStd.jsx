@@ -8,7 +8,10 @@ function LabroomStd() {
     window.location.href = '/fileupload';
   };
   const meetinghandler = () => {
-    window.location.href = '/fileupload';
+    window.location.href = '/student/meeting';
+  };
+  const closehandler = () => {
+    window.location.href = '/Sbody';
   };
   return (
     <div className="flex">
@@ -28,6 +31,13 @@ function LabroomStd() {
             <div className="text-xl whitespace-nowrap">Meeting with Instructor : </div>
             <div className="grow shrink border rounded bg-slate-50 py-2 px-5">
               <Button type="primary" onClick={meetinghandler} style={{backgroundColor: "#4096FF"}}>Start Meeting</Button>
+            </div>
+          </div>
+        </div>
+        <div className="flex-grow w-full p-4 border px-4 overflow-auto">
+          <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
+            <div className="grow shrink border rounded bg-slate-50 py-2 px-5 flex justify-center">
+              <Button type="primary" onClick={closehandler} style={{backgroundColor: "#EF4444",width: 200,height: 50, fontSize: "1.5em"}}>Close</Button>
             </div>
           </div>
         </div>

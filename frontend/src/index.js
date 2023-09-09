@@ -14,6 +14,7 @@ import InstructorDashboard from './instructorDashboard/InstructorDashboard';
 import SignIn from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import LabroomStd from './pages/student/LabroomStd';
+import MeetingStd from './pages/student/MeetingsStd';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,6 +36,7 @@ export default function App() {
     <Route path="/Sbody" element={<Sbody />} />
     <Route path="/InstructorDashboard/:email" element={<InstructorDashboard />} />
     <Route path="/studnetlabroom" element={<LabroomStd />} />
+    <Route path="/student/meeting" element={<MeetingStd/>} />
 
     <Route path="/register" element={<Register />} />
     <Route path="/login" element={<SignIn />} />
