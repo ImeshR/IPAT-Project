@@ -41,7 +41,6 @@ export const getalllabrooms = async (req, res, next) => {
 
   try {
   const { id } = req.params;
-    console.log(id);
     const labroom = await Labroom.find({instructoremail: id});
     if(!labroom){
         return res.status(404).send("Labroom not found");
