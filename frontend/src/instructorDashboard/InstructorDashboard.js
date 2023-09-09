@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import Sidebar from './InstructorSidebar';
 import Header from './Header';
 import CardOne from './cardOne'; 
@@ -6,8 +7,10 @@ import CardTwo from './cardTwo';
 
 // Import your background image
 import backgroundImage from '../assets/bg.jpg';
+import Labtable from '../components/instructor/labtable'
 
 const InstructorDashboard = () => {
+  const { email } = useParams();
   return (
     <div className="flex" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
       <Sidebar />
@@ -28,6 +31,8 @@ const InstructorDashboard = () => {
         {/* Third Card (larger) */}
         <div className="bg-white p-6 rounded-lg shadow-md mt-4 h-64">
           {/* Add content for the larger third card here */}
+        <div className="bg-white p-6 rounded-lg shadow-md mt-4  px-5"> {/* Adjust the height using h-xx */}
+           <Labtable userEmail={email}/>
         </div>
       </div>
     </div>
