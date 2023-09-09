@@ -2,11 +2,7 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {
-      colors: {
-        'custom-blue': '#1b559c', // Define your custom color
-      },
-    },
+    extend: {},
     screens: {
       'sm': '640px',
       // => @media (min-width: 640px) { ... }
@@ -15,7 +11,7 @@ module.exports = {
       // => @media (min-width: 768px) { ... }
 
       'lg': '1920px',
-      // => @media (min-width: 1920px) { ... }
+      // => @media (min-width: 1024px) { ... }
     },
     keyframes: {
       ping: {
