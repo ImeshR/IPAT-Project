@@ -1,10 +1,10 @@
 import React from 'react';
-import './Sidebar.css';
+import './InstructorSidebar.css';
 
-const Sidebar = () => {
+const InstructorSidebar = () => {
   return (
-    <div className="sidebar-container">
-      <h1 className="dashboard-title">Student Dashboard</h1>
+    <div className="sidebar-container mt-5">
+      <h1 className="dashboard-title">Lecture Dashboard</h1>
       <div className="profile-container">
         <div className="profile-circle">
           <i className="fas fa-user-circle text-white"></i>
@@ -15,11 +15,6 @@ const Sidebar = () => {
         <li>
           <a href="/">
             <i className="fas fa-home"></i> Home
-          </a>
-        </li>
-        <li>
-          <a href="/about">
-            <i className="fas fa-info-circle"></i> Profile
           </a>
         </li>
         <li>
@@ -47,4 +42,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default InstructorSidebar;

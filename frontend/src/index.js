@@ -10,9 +10,11 @@ import Instructor from './pages/Admin/instructor';
 import Labroom from './pages/Admin/labroom';
 import Students from './pages/Admin/students';
 import Sbody from './NewStudentDashboard/Sbody';
+import InstructorDashboard from './instructorDashboard/InstructorDashboard';
 import SignIn from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import LabroomStd from './pages/student/LabroomStd';
+
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -31,6 +33,7 @@ export default function App() {
     <Route path="/admin/students/management" element={<Students />} />
 
     <Route path="/Sbody" element={<Sbody />} />
+    <Route path="/InstructorDashboard" element={<InstructorDashboard />} />
     <Route path="/studnetlabroom" element={<LabroomStd />} />
 
     <Route path="/register" element={<Register />} />
