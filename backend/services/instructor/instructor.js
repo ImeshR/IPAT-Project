@@ -10,7 +10,7 @@ export const updateinstructor = async (req, res, next) => {
         email: req.body.email,
         password: req.body.password,
         role: req.body.role,
-        contactNumber: req.body.contactNumber,
+        contact: req.body.contact,
         profilePicture: req.body.profilePicture,
     };
   

@@ -7,6 +7,8 @@ import FileHandle from './pages/Filehandle/Filehandle';
 import Home from './pages/Home/home';
 import AdminDashboard from './pages/Admin/dashboard';
 import Instructor from './pages/Admin/instructor';
+import Labroom from './pages/Admin/labroom';
+import Students from './pages/Admin/students';
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -19,6 +21,8 @@ export default function App() {
     <Route path="/fileupload" element={<FileHandle />} />
     <Route path="/admin/dashboard" element={<AdminDashboard />} />
     <Route path="/admin/instructor/managemnet" element={<Instructor />} />
+    <Route path="/admin/labroom/management" element={<Labroom />} />
+    <Route path="/admin/students/management" element={<Students />} />
   </Routes>
 </BrowserRouter>
   );

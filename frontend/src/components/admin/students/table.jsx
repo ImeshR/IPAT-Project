@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Space, Table, Button, Modal, Form, Input } from "antd";
+import { Space, Table, Button, Modal, Form, Input, message } from "antd";
 const { Column } = Table;
 
 const TableComponent = () => {
-  const [instructors, setInstructors] = useState([]);
+  const [students, setStudents] = useState([]);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [recordToDelete, setRecordToDelete] = useState(null);
   const [updateFormVisible, setUpdateFormVisible] = useState(false);
@@ -12,20 +12,14 @@ const TableComponent = () => {
   const [form] = Form.useForm();
 
   useEffect(() => {
+    // Fetch student data here
     axios
-      .get("http://localhost:5000/api/admin/getallinstructors")
+      .get("http://localhost:5000/api/admin/getallstudents")
       .then((response) => {
-        const transformedData = response.data.map((instructor) => ({
-          key: instructor._id,
-          firstname: instructor.firstname,
-          lastname: instructor.lastname,
-          email: instructor.email,
-          contact: instructor.contact,
-        }));
-        setInstructors(transformedData);
+        setStudents(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   }, []);
 
@@ -41,33 +35,31 @@ const TableComponent = () => {
   const showUpdateForm = (record) => {
     setUpdatedData(record);
     setUpdateFormVisible(true);
-    form.setFieldsValue(record); // Update the form's initial values with the selected record
   };
-  
+
   const hideUpdateForm = () => {
     setUpdateFormVisible(false);
-    form.resetFields(); // Reset the form's fields when hiding the form
   };
 
   const handleDelete = () => {
     if (recordToDelete) {
       axios
         .delete(
-          `http://localhost:5000/api/admin/deleteinstructor/${recordToDelete.key}`
+          `http://localhost:5000/api/admin/deleteinstructor/${recordToDelete._id}`
         )
         .then((response) => {
           console.log(response);
+          message.success("Student deleted successfully");
           // Remove the deleted item from the table
-          setInstructors((prevInstructors) =>
-            prevInstructors.filter(
-              (instructor) => instructor.key !== recordToDelete.key
-            )
+          setStudents((prevStudents) =>
+            prevStudents.filter((student) => student._id !== recordToDelete._id)
           );
           hideDeleteModal();
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
           hideDeleteModal();
+          message.error("Failed to delete student");
         });
     }
   };
@@ -76,38 +68,36 @@ const TableComponent = () => {
     if (updatedData) {
       axios
         .put(
-          `http://localhost:5000/api/instructor/update/${updatedData.key}`, // Use the provided URL with the data ID
+          `http://localhost:5000/api/admin/updatestudent/${updatedData._id}`,
           updatedData
         )
         .then((response) => {
           console.log(response);
+          message.success("Student updated successfully");
           // Update the table with the new data
-          setInstructors((prevInstructors) =>
-            prevInstructors.map((instructor) =>
-              instructor.key === updatedData.key ? updatedData : instructor
+          setStudents((prevStudents) =>
+            prevStudents.map((student) =>
+              student._id === updatedData._id ? updatedData : student
             )
           );
           hideUpdateForm();
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
           hideUpdateForm();
+          message.error("Failed to update student");
         });
     }
   };
 
-  const updatename = (e) => {
-    setUpdatedData({ ...updatedData, firstname: e.target.value });
-    console.log(updatedData);
-  };
-
   return (
     <div className="w-full pt-10">
-      <Table dataSource={instructors}>
-        <Column title="First Name" dataIndex="firstname" key="fname" />
-        <Column title="Last Name" dataIndex="lastname" key="lname" />
+      <Table dataSource={students}>
+        <Column title="First Name" dataIndex="firstname" key="firstname" />
+        <Column title="Last Name" dataIndex="lastname" key="lastname" />
         <Column title="Email" dataIndex="email" key="email" />
-        <Column title="Contact" dataIndex="contact" key="contact" />
+        <Column title="Created At" dataIndex="createdAt" key="createdAt" />
+
         <Column
           title="Action"
           key="action"
@@ -146,18 +136,15 @@ const TableComponent = () => {
         <Form
           form={form}
           initialValues={updatedData}
-          onChange={updatename}
+          onFinish={(values) => setUpdatedData(values)}
         >
-          <Form.Item name="firstname"  label="First Name">
+          <Form.Item name="firstname" label="First Name">
             <Input />
           </Form.Item>
           <Form.Item name="lastname" label="Last Name">
             <Input />
           </Form.Item>
           <Form.Item name="email" label="Email">
-            <Input />
-          </Form.Item>
-          <Form.Item name="contact" label="Contact">
             <Input />
           </Form.Item>
         </Form>

@@ -31,7 +31,7 @@ const CustomerSchema = new mongoose.Schema({
         required: false,
         default: "student",
     },
-    contactNumber: { type: String },
+    contact: { type: String },
     pofilePicture: { type: String },
 }, { timestamps: true });
 

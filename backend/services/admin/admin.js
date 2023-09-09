@@ -118,7 +118,7 @@ export const addinstructor = async (req, res, next) => {
       email: req.body.email,
       password: hashedPassword,
       role: req.body.role || "instructor",
-      contactNumber: req.body.contactNumber,
+      contact: req.body.contact,
       profilePicture: req.body.profilePicture,
     };
 
@@ -149,3 +149,115 @@ export const deleteinstructor = async (req, res, next) => {
   }
 
 };
+
+// Get all instructors
+export const getallinstructors = async (req, res, next) => {
+  try {
+    const result = await User.find({ role: "instructor" });
+    res.json(result);
+  } catch (error) {
+    // Use your custom error handler to create and pass the error
+    next(createError(500, "Internal server error"));
+  }
+}
+
+
+//get user count seperated by role
+export const getusercount = async (req, res, next) => {
+  try {
+    const result = await User.aggregate([
+      {
+        $group: {
+          _id: "$role",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+    res.json(result);
+  } catch (error) {
+    // Use your custom error handler to create and pass the error
+    next(createError(500, "Internal server error"));
+  }
+}
+
+//get all labrooms
+export const getalllabrooms = async (req, res, next) => {
+  try {
+    const result = await Labroom.find({});
+    res.json(result);
+  } catch (error) {
+    // Use your custom error handler to create and pass the error
+    next(createError(500, "Internal server error"));
+  }
+}
+
+// Get total labroom count
+export const getlabroomcount = async (req, res, next) => {
+  try {
+    const count = await Labroom.countDocuments();
+    res.json({ count });
+  } catch (error) {
+    // Use your custom error handler to create and pass the error
+    next(createError(500, "Internal server error"));
+  }
+};
+
+// Get all students
+export const getallstudents = async (req, res, next) => {
+  try {
+    const result = await User.find({ role: "student" });
+    res.json(result);
+  } catch (error) {
+    // Use your custom error handler to create and pass the error
+    next(createError(500, "Internal server error"));
+  }
+}
+
+// Delete a student
+export const deletestudent = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const result = await User.findByIdAndDelete(id);
+
+    if (!result) {
+      // Use your custom error handler to create and pass the error
+      return next(createError(404, "User not found"));
+    }
+
+    res.send("User deleted");
+  } catch (error) {
+    // Use your custom error handler to create and pass the error
+    next(createError(500, "Internal server error"));
+  }
+
+}
+
+// Update student data
+export const updatestudent = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const updatestudent = {
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      password: req.body.password,
+      role: req.body.role || "student",
+      contact: req.body.contact,
+      profilePicture: req.body.profilePicture,
+    };
+
+    const update = await User.findByIdAndUpdate(id, updatestudent, { new: true });
+
+    if (!update) {
+      // Use your custom error handler to create and pass the error
+      return next(createError(404, "User not found"));
+    }
+
+    res.status(200).json(update);
+  } catch (error) {
+    // Use your custom error handler to create and pass the error
+    next(createError(500, "Internal server error"));
+  }
+}
