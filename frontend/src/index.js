@@ -4,6 +4,7 @@ import './index.css';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Splash from './pages/splash';
 import FileHandle from './pages/Filehandle/Filehandle';
+import Home from './pages/Home/home';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -13,8 +14,8 @@ export default function App() {
   <Routes>
     {/* <Route path="*" element={<Error />} /> */}
     <Route index element={<Splash />} />
-    <Route path="/file" element={<FileHandle/>}/>
-
+    
+    <Route path="/home" element={<Home />} />
     {/* <Route
           path='/student/dashboard'
           element={isLoggedIn ? <StudentDashboard /> : <Navigate to="/login" />}
