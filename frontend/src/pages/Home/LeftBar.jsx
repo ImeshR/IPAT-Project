@@ -45,20 +45,7 @@ const App = () => {
   };
 
   return (
-    <div
-      style={{
-        height: '100vh', // Set the height to 100% of the viewport height
-      }}
-    >
-      <Button
-        type="primary"
-        onClick={toggleCollapsed}
-        style={{
-          marginBottom: 16,
-        }}
-      >
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </Button>
+    <div>
       <Menu
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
@@ -66,6 +53,8 @@ const App = () => {
         theme="dark"
         inlineCollapsed={collapsed}
         items={items}
+
+        style={{ height: '100vh' }}
       />
     </div>
   );
