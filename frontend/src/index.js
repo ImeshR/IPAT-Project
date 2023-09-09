@@ -10,6 +10,7 @@ import Instructor from './pages/Admin/instructor';
 import Labroom from './pages/Admin/labroom';
 import Students from './pages/Admin/students';
 import Sbody from './NewStudentDashboard/Sbody';
+import InstructorDashboard from './instructorDashboard/InstructorDashboard';
 
 import StudentDashboard from './StudentDashboard/StudentDashboard'
 
@@ -31,6 +32,7 @@ export default function App() {
 
     <Route path="/studentdashboard" element={<StudentDashboard />} />
     <Route path="/Sbody" element={<Sbody />} />
+    <Route path="/InstructorDashboard" element={<InstructorDashboard />} />
 
   </Routes>
 </BrowserRouter>
