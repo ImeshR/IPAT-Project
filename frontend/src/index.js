@@ -16,6 +16,7 @@ export default function App() {
     <Route index element={<Splash />} />
     
     <Route path="/home" element={<Home />} />
+    <Route path="/fileupload" element={<FileHandle />} />
     {/* <Route
           path='/student/dashboard'
           element={isLoggedIn ? <StudentDashboard /> : <Navigate to="/login" />}

@@ -49,6 +49,10 @@ app.use("/api/admin", adminController);
 app.use("/api/student", studentController);
 app.use("/api/instructor", instructorController);
 
+app.get('/join', (req, res) => {
+  res.send({ link: uuidV4() });
+});
+
 app.listen(PORT, () => {
   console.log("Connected to Backend");
   console.log("Server is running on port: " + PORT);
