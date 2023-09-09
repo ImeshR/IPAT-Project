@@ -47,7 +47,7 @@ const FormComponent = () => {
           span: 16,
         }}
         style={{
-          maxWidth: 600,
+          maxWidth: 400,
         }}
         initialValues={{
           remember: true,
