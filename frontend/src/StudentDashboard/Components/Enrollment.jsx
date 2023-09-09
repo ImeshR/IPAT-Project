@@ -5,12 +5,10 @@ const Enrollment = () => {
 
   const handleInputChange = (e) => {
     setEnrollmentKey(e.target.value);
-  };
-
+    
+  }
   const handleButtonClick = () => {
-    // Handle the enrollment key submission here
-    // You can use the 'enrollmentKey' state variable
-    // to access the entered key and perform any actions
+    window.location.href = '/studnetlabroom';
   };
 
   return (
@@ -28,7 +26,7 @@ const Enrollment = () => {
       />
       <button
         className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
-        onClick={handleButtonClick}
+        onClick={handleButtonClick()}
       >
         Submit
       </button>

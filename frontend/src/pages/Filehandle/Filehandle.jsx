@@ -81,7 +81,8 @@ function Filehandle() {
 
       const storageRef = ref(storage, filepath);
       const uploadTask = uploadBytesResumable(storageRef, file);
-
+      
+      
       // uploadTask.on("state_changed", (snapshot) => {
       //   const progress =
       //     (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -93,6 +94,7 @@ function Filehandle() {
           duration: 2,
         });
       });
+      window.location.href = '/studnetlabroom';
     }
   };
 

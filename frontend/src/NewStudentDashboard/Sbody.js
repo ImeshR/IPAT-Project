@@ -1,7 +1,11 @@
-import React from 'react';
-import Sidebar from './Sidebar';
+import React from "react";
+import Sidebar from "./Sidebar";
 
 const Sbody = () => {
+  const handleButtonClick = () => {
+    window.location.href = '/studnetlabroom';
+  };
+
   return (
     <div className="flex">
       <Sidebar />
@@ -14,7 +18,10 @@ const Sbody = () => {
               className="p-2 border border-gray-300 rounded-l-md flex-grow focus:outline-none focus:border-blue-500"
               placeholder="Enter key"
             />
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600 focus:outline-none">
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600 focus:outline-none "
+              onClick={handleButtonClick}
+            >
               Submit
             </button>
           </div>

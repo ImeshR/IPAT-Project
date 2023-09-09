@@ -13,7 +13,7 @@ import Sbody from './NewStudentDashboard/Sbody';
 import SignIn from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import StudentDashboard from './StudentDashboard/StudentDashboard';
-
+import LabroomStd from './pages/student/LabroomStd';
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -23,14 +23,20 @@ export default function App() {
     {/* <Route path="*" element={<Error />} /> */}
     <Route index element={<Splash />} />
     <Route path="/home" element={<Home />} />
+
     <Route path="/fileupload" element={<FileHandle />} />
+
     <Route path="/admin/dashboard" element={<AdminDashboard />} />
     <Route path="/admin/instructor/managemnet" element={<Instructor />} />
     <Route path="/admin/labroom/management" element={<Labroom />} />
     <Route path="/admin/students/management" element={<Students />} />
-    <Route path="/register" element={<Register />} />
+
+
     <Route path="/studentdashboard" element={<StudentDashboard />} />
     <Route path="/Sbody" element={<Sbody />} />
+    <Route path="/studnetlabroom" element={<LabroomStd />} />
+
+    <Route path="/register" element={<Register />} />
     <Route path="/login" element={<SignIn />} />
 
   </Routes>
