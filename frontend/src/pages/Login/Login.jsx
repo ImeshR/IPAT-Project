@@ -1,21 +1,23 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Form from "../../components/login/form";
 
 const Login = () => {
   return (
-    <div className="w-full h-[100vh] px-96 py-10">
-      <div className="border rounded-2xl w-full h-[600px] flex-col  justify-center items-center bg-slate-50 pt-10">
-        <div className="w-full font-semibold text-3xl flex justify-center">
-          Register
-        </div>
-        <div className="w-full flex justify-evenly px-5 py-2">
-          <div className=" bg-[#4096FF] flex-col w-1/2 h-[500px] grow">
-            <div className="text-white font-semibold text-3xl pl-5 pt-10">CodeWave</div>
-            
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="max-w-3xl w-full bg-white p-8 rounded-lg shadow-lg">
+        <h1 className="text-3xl font-semibold text-center mb-6">Log In</h1>
+        <div className="flex justify-between">
+          <div className="w-1/2 bg-blue-500 p-8 rounded-lg">
+            <h2 className="text-white text-4xl font-semibold mb-4">CodeWave</h2>
+            {/* Add any additional content for the left side */}
           </div>
-          <div className="w-full border pt-20 font-semibold text-3xl flex justify-center">
+          <div className="w-1/2 p-4">
             <Form />
           </div>
+        </div>
+        <div className="text-center mt-4">
+          Don't have an account? <Link to="/register" className="text-blue-500">Register here</Link>
         </div>
       </div>
     </div>

@@ -1,15 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Form from "../../components/register/form";
 
 function Register() {
   return (
-    <div className="w-full h-[100vh] px-40 py-10">
-      <div className="border rounded-2xl w-full h-[600px] flex-col  justify-center items-center bg-slate-50 pt-10">
-        <div className="w-full font-semibold text-3xl flex justify-center">
-          Register
-        </div>
-        <div className="w-full pt-20 font-semibold text-3xl flex justify-center">
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
+        <h1 className="text-3xl font-semibold text-center mb-6">Register</h1>
+        <div className="w-full pt-10 font-semibold text-3xl flex justify-center">
           <Form />
+        </div>
+        <div className="text-center mt-4">
+          Already have an account? <Link to="/login" className="text-blue-500">Login here</Link>
         </div>
       </div>
     </div>
