@@ -38,7 +38,7 @@ const NewAdd = () => {
   return (
     <>
       <div className="text-2xl">Add New Instructor</div>
-      <div className="border w-full h-[100px] flex items-center pl-5">
+      <div className="w-full h-[100px] flex items-center pl-5">
         <Button
           type="primary"
           style={{ backgroundColor: "#1677FF" }}
