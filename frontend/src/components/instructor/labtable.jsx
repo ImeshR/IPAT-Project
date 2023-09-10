@@ -110,6 +110,7 @@ const LabTable = ({ userEmail }) => {
         <Column title="Name" dataIndex="name" key="name" />
         <Column title="Description" dataIndex="description" key="description" />
         <Column title="Capacity" dataIndex="capacity" key="capacity" />
+        <Column title="Enrollemnt" dataIndex="_id" key="_id" />
         <Column
           title="Action"
           key="action"

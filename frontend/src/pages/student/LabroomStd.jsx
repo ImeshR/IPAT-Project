@@ -1,43 +1,80 @@
-import React from "react";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom"; // Import useParams from react-router-dom
 import Sidebar from "../../NewStudentDashboard/Sidebar";
 import DataForm from "../../components/student/Dataform";
 import { Button } from "antd";
 
 function LabroomStd() {
+  const [labName, setLabName] = useState("");
+  const { id } = useParams();
+
   const uploadhandler = () => {
-    window.location.href = '/fileupload';
+    // Construct the URL with the labName as a query parameter
+    const fileUploadUrl = `/fileupload/${id}`;
+    window.location.href = fileUploadUrl;
   };
   const meetinghandler = () => {
-    window.location.href = '/student/meeting';
+    window.location.href = "/student/meeting";
   };
   const closehandler = () => {
-    window.location.href = '/Sbody';
+    window.location.href = "/Sbody";
+  };
+  // Callback function to set the lab name in the state
+  const handleLabNameFetched = (name) => {
+    setLabName(name);
   };
   return (
     <div className="flex">
       <Sidebar />
       <div className="w-full flex-col px-10">
-        <DataForm />
+        <DataForm id={id} onLabNameFetched={handleLabNameFetched} />
         <div className="flex-grow w-full p-4 border px-4 overflow-auto">
           <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
-            <div className="text-xl whitespace-nowrap">Upload Your Answer : </div>
+            <div className="text-xl whitespace-nowrap">
+              Upload Your Answer :{" "}
+            </div>
             <div className="grow shrink border rounded bg-slate-50 py-2 px-5">
-              <Button type="primary" onClick={uploadhandler} style={{backgroundColor: "#4096FF"}}>Upload</Button>
+              <Button
+                type="primary"
+                onClick={uploadhandler}
+                style={{ backgroundColor: "#4096FF" }}
+              >
+                Upload
+              </Button>
             </div>
           </div>
         </div>
         <div className="flex-grow w-full p-4 border px-4 overflow-auto">
           <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
-            <div className="text-xl whitespace-nowrap">Meeting with Instructor : </div>
+            <div className="text-xl whitespace-nowrap">
+              Meeting with Instructor :{" "}
+            </div>
             <div className="grow shrink border rounded bg-slate-50 py-2 px-5">
-              <Button type="primary" onClick={meetinghandler} style={{backgroundColor: "#4096FF"}}>Start Meeting</Button>
+              <Button
+                type="primary"
+                onClick={meetinghandler}
+                style={{ backgroundColor: "#4096FF" }}
+              >
+                Start Meeting
+              </Button>
             </div>
           </div>
         </div>
         <div className="flex-grow w-full p-4 border px-4 overflow-auto">
           <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
             <div className="grow shrink border rounded bg-slate-50 py-2 px-5 flex justify-center">
-              <Button type="primary" onClick={closehandler} style={{backgroundColor: "#EF4444",width: 200,height: 50, fontSize: "1.5em"}}>Close</Button>
+              <Button
+                type="primary"
+                onClick={closehandler}
+                style={{
+                  backgroundColor: "#EF4444",
+                  width: 200,
+                  height: 50,
+                  fontSize: "1.5em",
+                }}
+              >
+                Close
+              </Button>
             </div>
           </div>
         </div>

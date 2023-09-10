@@ -10,7 +10,7 @@ function formatDateToYYYYMMDD(dateString) {
   return `${year}-${month}-${day}`;
 }
 
-function Dataform ({ id }) {
+function Dataform () {
   const [labroomData, setLabroomData] = useState({
     name: "",
     description: "",
@@ -25,7 +25,7 @@ function Dataform ({ id }) {
   useEffect(() => {
     // Fetch lab room data using the provided URL
     axios
-      .get(`http://localhost:5000/api/student/enroll/${id}`)
+      .get("http://localhost:5000/api/labroom/getlab/64fa2f703f67f47bc0865c9a")
       .then((response) => {
         // Format the date here
         response.data.labdate = formatDateToYYYYMMDD(response.data.labdate);
@@ -41,8 +41,8 @@ function Dataform ({ id }) {
     setCurrentStep(value);
   };
   return (
-    <div className="flex-grow w-full p-4 border px-4 overflow-auto">
-      <div className="w-full border rounded py-5 flex-col flex px-5 gap-5">
+    <div className="flex-grow w-full p-4 border rounded-lg px-4 overflow-auto">
+      <div className="w-full rounded py-5 flex-col flex px-5 gap-5">
         <div className="w-full flex justify-between">
         <div className="font-semibold text-3xl ">{labroomData.name}</div>
          <div className="text-4xl pr-10">👾</div>

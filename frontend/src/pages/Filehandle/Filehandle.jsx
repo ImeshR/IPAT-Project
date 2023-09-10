@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { storage } from "../../firebase-config";
 import { ref, uploadBytesResumable } from "firebase/storage";
 import { message, Button, Input, DatePicker, Tooltip } from "antd";
@@ -49,7 +50,7 @@ const NumericInput = (props) => {
 function Filehandle() {
   const [file, setFile] = useState("");
   const [student, setStudent] = useState("");
-  const [lab, setLab] = useState("");
+  const [lab, setLab] = useState();
   const [date, setDate] = useState("");
   const [comment, setComment] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
@@ -58,6 +59,9 @@ function Filehandle() {
   const onChange = (date, dateString) => {
     setDate(dateString);
   };
+
+  const { id } = useParams();
+  console.log(id);
 
   //function to upload file to firebase
   const uploadFile = (e) => {
@@ -76,28 +80,31 @@ function Filehandle() {
       });
       return;
     } else {
-      const filename = `${student}_lab${value}_${date}`;
+      
+      const filename = `${student}_lab0${value}_${date}`;
       const filepath = `files/lab${value}/${filename}`;
-
+     
+      console.log(filepath);
+    
       const storageRef = ref(storage, filepath);
+
       const uploadTask = uploadBytesResumable(storageRef, file);
       
-      
-      // uploadTask.on("state_changed", (snapshot) => {
-      //   const progress =
-      //     (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      //   console.log("Upload is " + progress + "% done");
-      // });
+      uploadTask.on("state_changed", (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+      });
+
       uploadTask.then(() => {
         message.success({
           content: `File uploaded successfully`,
           duration: 2,
         });
       });
-      window.location.href = '/studnetlabroom';
+      window.location.href = '/Sbody';
     }
   };
-
   return (
     <div className="border rounded bg-slate-100 w-full h-full flex flex-col justify-center items-center py-40">
       {contextHolder}

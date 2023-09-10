@@ -15,6 +15,7 @@ import SignIn from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import LabroomStd from './pages/student/LabroomStd';
 import MeetingStd from './pages/student/MeetingsStd';
+import ViewLab from './pages/instructor/ViewLab';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,7 +27,7 @@ export default function App() {
     <Route index element={<Splash />} />
     <Route path="/home" element={<Home />} />
 
-    <Route path="/fileupload" element={<FileHandle />} />
+    <Route path="/fileupload/:id" element={<FileHandle />} />
 
     <Route path="/admin/dashboard" element={<AdminDashboard />} />
     <Route path="/admin/instructor/managemnet" element={<Instructor />} />
@@ -34,9 +35,11 @@ export default function App() {
     <Route path="/admin/students/management" element={<Students />} />
 
     <Route path="/Sbody" element={<Sbody />} />
-    <Route path="/InstructorDashboard/:email" element={<InstructorDashboard />} />
-    <Route path="/studnetlabroom" element={<LabroomStd />} />
+    <Route path="/studnetlabroom/:id" element={<LabroomStd />} />
     <Route path="/student/meeting" element={<MeetingStd/>} />
+
+    <Route path="/InstructorDashboard/:email" element={<InstructorDashboard />} />
+    <Route path="/labview/:id" element={<ViewLab/>}/>
 
     <Route path="/register" element={<Register />} />
     <Route path="/login" element={<SignIn />} />
