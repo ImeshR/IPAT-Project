@@ -35,7 +35,7 @@ const FormComponent = () => {
   };
 
   return (
-    <div>
+    <div className="w-full py-2 pr-16">
       <Form
         name="basic"
         labelCol={{
@@ -45,7 +45,7 @@ const FormComponent = () => {
           span: 16,
         }}
         style={{
-          maxWidth: 400,
+          maxWidth: 800,
         }}
         initialValues={{
           remember: true,
