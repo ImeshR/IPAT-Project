@@ -31,6 +31,7 @@ const Sbody = () => {
                 className="p-2 border border-gray-300 rounded-l-md flex-grow focus:outline-none focus:border-blue-500"
                 placeholder="Enter key"
                 value={enrollmentKey}
+                required
                 onChange={handleInputChange} // Update the state on input change
               />
               <button

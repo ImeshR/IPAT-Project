@@ -7,8 +7,6 @@ const FormComponent = () => {
     // Make a POST request to your login API endpoint
     axios.post('http://localhost:5000/api/auth/login', values)
       .then((response) => {
-        console.log(response.data); // You may want to check the response structure
-
         // Assuming the response contains a message or status field to indicate success
         if (response.data.role === 'student') {
           message.success('Login successful');
@@ -20,16 +18,15 @@ const FormComponent = () => {
           window.location.href = '/admin/dashboard'; // Adjust the URL as needed
         } else if (response.data.role === 'instructor') {
           message.success('Login successful');
-          // Redirect to the instructor dashboard
           const instructorDashboardURL = `/instructordashboard/${response.data.email}`;
           window.location.href = instructorDashboardURL;
         } else {
-          message.error('Login failed. Please check your credentials.');
+          message.error('Login failed.');
         } 
       })
       .catch((error) => {
         console.error(error);
-        message.error('Login failed. Please try again later.');
+        message.error('Login failed. Please check your credentials.');
       });
   };
 

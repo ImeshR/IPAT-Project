@@ -22,8 +22,8 @@ const onFinish = (values) => {
       window.location.href = '/login';
     })
     .catch((error) => {
-      console.error('Registration failed:', error);
-      message.error('Registration failed');
+      console.error('Registration failed:', error.response.data);
+      message.error(error.response.data.message);
     });
 };
 

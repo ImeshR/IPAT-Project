@@ -11,6 +11,7 @@ import studentController from "./controllers/student/student.js";
 import instructorController from "./controllers/instructor/instructor.js";
 
 const app = express();
+
 app.use(cors());
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -49,9 +50,6 @@ app.use("/api/admin", adminController);
 app.use("/api/student", studentController);
 app.use("/api/instructor", instructorController);
 
-app.get('/join', (req, res) => {
-  res.send({ link: uuidV4() });
-});
 
 app.listen(PORT, () => {
   console.log("Connected to Backend");

@@ -2,8 +2,8 @@
 .sidebar-container {
     height: 100vh; /* Set the height to 100% of viewport height */
     width: 15%; /* Adjust the width as needed */
-    background-color: #bebaba;
-    color: #252323;
+    background-color: #184d9c;
+    /* color: #252323; */
     display: flex;
     flex-direction: column;
     align-items: center;

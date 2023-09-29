@@ -14,8 +14,10 @@ function LabroomStd() {
     window.location.href = fileUploadUrl;
   };
   const meetinghandler = () => {
-    window.location.href = "/student/meeting";
+    const url = "/student/meetingroom";
+    window.open(url, "_blank");
   };
+  
   const closehandler = () => {
     window.location.href = "/Sbody";
   };
@@ -28,7 +30,7 @@ function LabroomStd() {
       <Sidebar />
       <div className="w-full flex-col px-10">
         <DataForm id={id} onLabNameFetched={handleLabNameFetched} />
-        <div className="flex-grow w-full p-4 border px-4 overflow-auto">
+        <div className="flex-grow w-full p-4  px-4 overflow-auto">
           <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
             <div className="text-xl whitespace-nowrap">
               Upload Your Answer :{" "}
@@ -49,7 +51,7 @@ function LabroomStd() {
             <div className="text-xl whitespace-nowrap">
               Meeting with Instructor :{" "}
             </div>
-            <div className="grow shrink border rounded bg-slate-50 py-2 px-5">
+            <div className="grow shrink  rounded bg-slate-50 py-2 px-5">
               <Button
                 type="primary"
                 onClick={meetinghandler}
@@ -60,9 +62,9 @@ function LabroomStd() {
             </div>
           </div>
         </div>
-        <div className="flex-grow w-full p-4 border px-4 overflow-auto">
-          <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
-            <div className="grow shrink border rounded bg-slate-50 py-2 px-5 flex justify-center">
+        <div className="flex-grow w-full p-4 px-4 overflow-auto">
+          <div className="w-full h-full px-5 rounded-lg py-2 flex items-center gap-5">
+            <div className="grow shrink  rounded bg-slate-50 py-2 px-5 flex justify-center">
               <Button
                 type="primary"
                 onClick={closehandler}

@@ -10,7 +10,6 @@ const Login = () => {
         <div className="flex justify-between">
           <div className="w-1/2 bg-blue-500 p-8 rounded-lg">
             <h2 className="text-white text-4xl font-semibold mb-4">CodeWave</h2>
-            {/* Add any additional content for the left side */}
           </div>
           <div className="w-1/2 p-4">
             <Form />
