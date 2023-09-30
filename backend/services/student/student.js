@@ -19,24 +19,38 @@ export const enroll = async (req, res, next) => {
 };
 
 export const updatestudent = async (req, res, next) => {
-    const { id } = req.params;
-  
-    //update instructor
-    const updatedata = {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        password: req.body.password,
-        role: req.body.role,
-        contactNumber: req.body.contactNumber,
-        profilePicture: req.body.profilePicture,
-    };
-  
-    const update = User.findByIdAndUpdate(id, updatedata, { new: true })
-      .then((update) => {
-        res.status(200).json(update);
-      })
-      .catch((err) => {
-        res.status(500).json("not found");
-      });
+  const { id } = req.params;
+
+  //update instructor
+  const updatedata = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    password: req.body.password,
+    role: req.body.role,
+    contactNumber: req.body.contactNumber,
+    profilePicture: req.body.profilePicture,
   };
+
+  const update = User.findByIdAndUpdate(id, updatedata, { new: true })
+    .then((update) => {
+      res.status(200).json(update);
+    })
+    .catch((err) => {
+      res.status(500).json("not found");
+    });
+};
+
+//check if enrollment key is valid
+export const checkenroll = async (req, res, next) => {
+  const { key } = req.params;
+
+  //check if enrollment key is valid
+  const labroom = await Labroom.findOne({ enrollmentkey: key });
+
+  if (!labroom) {
+    return res.status(200).json("invalid");
+  }else{
+    return res.status(200).json("valid");
+  }
+};

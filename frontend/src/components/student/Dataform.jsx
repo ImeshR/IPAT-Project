@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Steps } from "antd";
+import { Steps, Spin } from "antd";
 import axios from "axios";
 
 function formatDateToYYYYMMDD(dateString) {
@@ -21,6 +21,7 @@ function Dataform ({ id }) {
     step: [],
   });
   const [currentStep, setCurrentStep] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Fetch lab room data using the provided URL
@@ -30,6 +31,7 @@ function Dataform ({ id }) {
         // Format the date here
         response.data.labdate = formatDateToYYYYMMDD(response.data.labdate);
         setLabroomData(response.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error(error);
@@ -41,10 +43,13 @@ function Dataform ({ id }) {
     setCurrentStep(value);
   };
   return (
-    <div className="flex-grow w-full p-4 border px-4 overflow-auto">
-      <div className="w-full border rounded py-5 flex-col flex px-5 gap-5">
+    <div className="flex-grow w-full p-4 px-4">
+       {loading ? ( // Conditional rendering based on the loading state
+        <Spin size="large" style={{width: "100%",display: "flex", justifyContent: "center", alignItems: "center"}}/> // Display loading spinner
+      ) : (
+        <div className="w-full rounded py-5 flex-col flex px-5 gap-5">
         <div className="w-full flex justify-between">
-        <div className="font-semibold text-3xl ">{labroomData.name}</div>
+        <div className="font-semibold text-3xl text-primary capitalize">{labroomData.name}</div>
          <div className="text-4xl pr-10">👾</div>
         </div>
         <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
@@ -84,6 +89,7 @@ function Dataform ({ id }) {
               current={currentStep}
               onChange={onChangeStep}
               direction="vertical"
+              style={{color: "#296F9D"}}
               items={labroomData.step.map((step, index) => ({
                 title: `Step ${index + 1}`,
                 description: step,
@@ -92,6 +98,7 @@ function Dataform ({ id }) {
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 };

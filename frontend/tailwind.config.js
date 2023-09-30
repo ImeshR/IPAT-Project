@@ -4,7 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'custom-blue': '#1b559c', // Define your custom color
+        primary: {
+          DEFAULT: '#296F9D',
+          50: '#67A8D257',
+        },
       },
     },
     screens: {

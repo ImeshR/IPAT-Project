@@ -11,7 +11,7 @@ const FormComponent = () => {
         if (response.data.role === 'student') {
           message.success('Login successful');
           // Redirect to the student dashboard
-          window.location.href = '/Sbody'; // Adjust the URL as needed
+          window.location.href = '/student/dashboard'; // Adjust the URL as needed
         } else if (response.data.role === 'admin') {
           message.success('Login successful');
           // Redirect to the admin dashboard

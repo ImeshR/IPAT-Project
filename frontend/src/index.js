@@ -17,6 +17,7 @@ import LabroomStd from "./pages/student/LabroomStd";
 import ViewLab from "./pages/instructor/ViewLab";
 import Error from "./pages/404page/Error404"
 import MeetingRoom from "./pages/MeetingRoom/MeetingRoom";
+import Dashboard from "./pages/student/Dashboard";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -33,7 +34,7 @@ export default function App() {
         <Route path="/admin/instructor/managemnet" element={<Instructor />} />
         <Route path="/admin/labroom/management" element={<Labroom />} />
         <Route path="/admin/students/management" element={<Students />} />
-        <Route path="/Sbody" element={<Sbody />} />
+        <Route path="/student/dashboard" element={<Dashboard />} />
         <Route path="/studnetlabroom/:id" element={<LabroomStd />} />
         <Route path="/student/meetingroom" element={<MeetingRoom />} />
         <Route

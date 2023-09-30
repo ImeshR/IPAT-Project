@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom"; // Import useParams from react-router-dom
-import Sidebar from "../../NewStudentDashboard/Sidebar";
+import Layout from "./layout";
 import DataForm from "../../components/student/Dataform";
 import { Button } from "antd";
 
@@ -17,7 +17,7 @@ function LabroomStd() {
     const url = "/student/meetingroom";
     window.open(url, "_blank");
   };
-  
+
   const closehandler = () => {
     window.location.href = "/Sbody";
   };
@@ -26,62 +26,63 @@ function LabroomStd() {
     setLabName(name);
   };
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="w-full flex-col px-10">
-        <DataForm id={id} onLabNameFetched={handleLabNameFetched} />
-        <div className="flex-grow w-full p-4  px-4 overflow-auto">
+    <Layout>
+      <div className="w-full flex-col border  max-h-screen overflow-y-auto">
+       <DataForm id={id} onLabNameFetched={handleLabNameFetched} />
+        <div className="flex-grow w-full p-4 px-8">
           <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
             <div className="text-xl whitespace-nowrap">
-              Upload Your Answer :{" "}
+              Upload Your Answer :
             </div>
             <div className="grow shrink border rounded bg-slate-50 py-2 px-5">
               <Button
                 type="primary"
                 onClick={uploadhandler}
-                style={{ backgroundColor: "#4096FF" }}
+                style={{ backgroundColor: "#296F9D" }}
               >
                 Upload
               </Button>
             </div>
           </div>
         </div>
-        <div className="flex-grow w-full p-4 border px-4 overflow-auto">
+
+        <div className="flex-grow w-full p-4 px-8">
           <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
             <div className="text-xl whitespace-nowrap">
-              Meeting with Instructor :{" "}
+              Meeting with Instructor :
             </div>
             <div className="grow shrink  rounded bg-slate-50 py-2 px-5">
               <Button
                 type="primary"
                 onClick={meetinghandler}
-                style={{ backgroundColor: "#4096FF" }}
+                style={{ backgroundColor: "#296F9D" }}
               >
                 Start Meeting
               </Button>
             </div>
           </div>
         </div>
-        <div className="flex-grow w-full p-4 px-4 overflow-auto">
+
+        <div className="flex-grow w-full p-4 px-4">
           <div className="w-full h-full px-5 rounded-lg py-2 flex items-center gap-5">
             <div className="grow shrink  rounded bg-slate-50 py-2 px-5 flex justify-center">
               <Button
                 type="primary"
                 onClick={closehandler}
                 style={{
-                  backgroundColor: "#EF4444",
+                  backgroundColor: "#296F9D",
                   width: 200,
                   height: 50,
                   fontSize: "1.5em",
                 }}
               >
-                Close
+                Submit
               </Button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 
