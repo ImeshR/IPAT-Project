@@ -10,7 +10,7 @@ const Dashboard = () => {
       <div className="pl-2 top-0 right-0 bottom-0 flex grow flex-col border gap-5">
         <div className="w-full text-2xl font-semibold ">Sudent Dashboard</div>
         <Enrollment />
-        <div className="w-full border">
+        <div className="w-full px-4">
          <LabTable />
         </div>
       </div>

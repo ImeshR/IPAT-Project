@@ -10,7 +10,7 @@ function formatDateToYYYYMMDD(dateString) {
   return `${year}-${month}-${day}`;
 }
 
-function Dataform ({ id }) {
+function Dataform({ id, onStepCompletion, onLabIdFetched }) {
   const [labroomData, setLabroomData] = useState({
     name: "",
     description: "",
@@ -31,6 +31,7 @@ function Dataform ({ id }) {
         // Format the date here
         response.data.labdate = formatDateToYYYYMMDD(response.data.labdate);
         setLabroomData(response.data);
+        onLabIdFetched(response.data._id);
         setLoading(false);
       })
       .catch((error) => {
@@ -39,18 +40,32 @@ function Dataform ({ id }) {
   }, []);
 
   const onChangeStep = (value) => {
-    console.log("onChangeStep:", value);
     setCurrentStep(value);
+
+    // Check if this is the final step (you may need to adjust the condition)
+    if (value === labroomData.step.length - 1) {
+      onStepCompletion(); // Call the callback function from props
+      console.log("Final step completed");
+    }
   };
+
   return (
     <div className="flex-grow w-full p-4 px-4">
-       {loading ? ( // Conditional rendering based on the loading state
-        <Spin size="large" style={{width: "100%",display: "flex", justifyContent: "center", alignItems: "center"}}/> // Display loading spinner
+      {loading ? (
+        <Spin
+          size="large"
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        />
       ) : (
         <div className="w-full rounded py-5 flex-col flex px-5 gap-5">
-        <div className="w-full flex justify-between">
+          <div className="w-full flex justify-between">
         <div className="font-semibold text-3xl text-primary capitalize">{labroomData.name}</div>
-         <div className="text-4xl pr-10">👾</div>
+         <div className="text-4xl pr-10"><span className="text-lg">Please Join with the meeting by clicking Join Meeting</span>👾</div>
         </div>
         <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
           <div className="text-xl whitespace-nowrap">Description : </div>
@@ -82,25 +97,25 @@ function Dataform ({ id }) {
             {labroomData.labdate}
           </div>
         </div>
-        <div className="w-full h-full px-5 rounded-lg py-2 border flex flex-col gap-5">
-          <div className="text-xl whitespace-nowrap">Steps : </div>
-          <div className="grow shrink border rounded bg-slate-50 py-2 px-20">
-            <Steps
-              current={currentStep}
-              onChange={onChangeStep}
-              direction="vertical"
-              style={{color: "#296F9D"}}
-              items={labroomData.step.map((step, index) => ({
-                title: `Step ${index + 1}`,
-                description: step,
-              }))}
-            />
+          <div className="w-full h-full px-5 rounded-lg py-2 border flex flex-col gap-5">
+            <div className="text-xl whitespace-nowrap">Steps : </div>
+            <div className="grow shrink border rounded bg-slate-50 py-2 px-20">
+              <Steps
+                current={currentStep}
+                onChange={onChangeStep}
+                direction="vertical"
+                style={{ color: "#296F9D" }}
+                items={labroomData.step.map((step, index) => ({
+                  title: `Step ${index + 1}`,
+                  description: step,
+                }))}
+              />
+            </div>
           </div>
         </div>
-      </div>
       )}
     </div>
   );
-};
+}
 
 export default Dataform;

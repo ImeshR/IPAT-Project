@@ -96,13 +96,13 @@ function Filehandle() {
         console.log("Upload is " + progress + "% done");
       });
 
-      uploadTask.then(() => {
-        message.success({
-          content: `File uploaded successfully`,
-          duration: 2,
-        });
-      });
-      window.location.href = '/Sbody';
+      // uploadTask.then(() => {
+      //   message.success({
+      //     content: `File uploaded successfully`,
+      //     duration: 2,
+      //   });
+      // });
+      // window.location.href = '/student/dashboard';
     }
   };
   return (

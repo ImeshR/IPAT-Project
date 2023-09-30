@@ -9,7 +9,6 @@ import AdminDashboard from "./pages/Admin/dashboard";
 import Instructor from "./pages/Admin/instructor";
 import Labroom from "./pages/Admin/labroom";
 import Students from "./pages/Admin/students";
-import Sbody from "./NewStudentDashboard/Sbody";
 import InstructorDashboard from "./instructorDashboard/InstructorDashboard";
 import SignIn from "./pages/Login/Login";
 import Register from "./pages/Register/Register";

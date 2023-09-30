@@ -7,17 +7,21 @@ const FormComponent = () => {
     // Make a POST request to your login API endpoint
     axios.post('http://localhost:5000/api/auth/login', values)
       .then((response) => {
-        // Assuming the response contains a message or status field to indicate success
+
         if (response.data.role === 'student') {
           message.success('Login successful');
-          // Redirect to the student dashboard
-          window.location.href = '/student/dashboard'; // Adjust the URL as needed
+          sessionStorage.setItem('userId', response.data._id);
+          sessionStorage.setItem('userFname', response.data.firstname);
+          sessionStorage.setItem('userLName', response.data.lastname);
+          window.location.href = '/student/dashboard';
         } else if (response.data.role === 'admin') {
           message.success('Login successful');
-          // Redirect to the admin dashboard
-          window.location.href = '/admin/dashboard'; // Adjust the URL as needed
+          window.location.href = '/admin/dashboard'; 
         } else if (response.data.role === 'instructor') {
           message.success('Login successful');
+          sessionStorage.setItem('userId', response.data._id);
+          sessionStorage.setItem('userFname', response.data.firstname);
+          sessionStorage.setItem('userLName', response.data.lastname);
           const instructorDashboardURL = `/instructordashboard/${response.data.email}`;
           window.location.href = instructorDashboardURL;
         } else {

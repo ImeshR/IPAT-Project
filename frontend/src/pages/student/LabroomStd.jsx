@@ -1,39 +1,85 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom"; // Import useParams from react-router-dom
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Steps, Spin, Button, message } from "antd";
+import axios from "axios";
 import Layout from "./layout";
 import DataForm from "../../components/student/Dataform";
-import { Button } from "antd";
 
 function LabroomStd() {
   const [labName, setLabName] = useState("");
   const { id } = useParams();
+  const [stepCompleted, setStepCompleted] = useState(false);
+  const [LabId, setLabId] = useState("");
+  const studentId = sessionStorage.getItem("userId");
 
   const uploadhandler = () => {
     // Construct the URL with the labName as a query parameter
     const fileUploadUrl = `/fileupload/${id}`;
     window.location.href = fileUploadUrl;
   };
+
   const meetinghandler = () => {
     const url = "/student/meetingroom";
     window.open(url, "_blank");
   };
 
-  const closehandler = () => {
-    window.location.href = "/Sbody";
+  const submithandler = () => {
+    // Check if the labId and studentId are available
+    if (!LabId || !studentId) {
+      message.error("Lab ID or Student ID is missing.");
+      return;
+    }
+
+    // Prepare the request body
+    const requestBody = {
+      labId: LabId,
+    };
+
+    // Make the PUT request to update the status
+    axios
+      .put(`http://localhost:5000/api/student/enroll/updatestatus/${studentId}`, requestBody)
+      .then((response) => {
+        // Check for a success response from the server
+        if (response.status === 200) {
+          message.success("Lab successfully submitted.");
+
+          setTimeout(() => {
+            window.location.href = "/student/dashboard";
+          }, 2000);
+        } else {
+          message.error("Failed to submit lab. Please try again later.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error submitting lab:", error);
+        message.error("An error occurred while submitting the lab. Please try again later.");
+      });
   };
-  // Callback function to set the lab name in the state
+
   const handleLabNameFetched = (name) => {
     setLabName(name);
   };
+
+  const handleStepCompletion = () => {
+    setStepCompleted(true);
+  };
+
+  const handleLabIdFetched = (id) => {
+    setLabId(id);
+  };
+
   return (
     <Layout>
       <div className="w-full flex-col border  max-h-screen overflow-y-auto">
-       <DataForm id={id} onLabNameFetched={handleLabNameFetched} />
+        <DataForm
+          id={id}
+          onLabNameFetched={handleLabNameFetched}
+          onStepCompletion={handleStepCompletion}
+          onLabIdFetched={handleLabIdFetched}
+        />
         <div className="flex-grow w-full p-4 px-8">
           <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
-            <div className="text-xl whitespace-nowrap">
-              Upload Your Answer :
-            </div>
+            <div className="text-xl whitespace-nowrap">Upload Your Answer :</div>
             <div className="grow shrink border rounded bg-slate-50 py-2 px-5">
               <Button
                 type="primary"
@@ -48,39 +94,46 @@ function LabroomStd() {
 
         <div className="flex-grow w-full p-4 px-8">
           <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
-            <div className="text-xl whitespace-nowrap">
-              Meeting with Instructor :
-            </div>
+            <div className="text-xl whitespace-nowrap">Meeting with Instructor :</div>
             <div className="grow shrink  rounded bg-slate-50 py-2 px-5">
               <Button
                 type="primary"
                 onClick={meetinghandler}
                 style={{ backgroundColor: "#296F9D" }}
               >
-                Start Meeting
+                Join Meeting
               </Button>
             </div>
           </div>
         </div>
 
         <div className="flex-grow w-full p-4 px-4">
-          <div className="w-full h-full px-5 rounded-lg py-2 flex items-center gap-5">
-            <div className="grow shrink  rounded bg-slate-50 py-2 px-5 flex justify-center">
-              <Button
-                type="primary"
-                onClick={closehandler}
-                style={{
-                  backgroundColor: "#296F9D",
-                  width: 200,
-                  height: 50,
-                  fontSize: "1.5em",
-                }}
-              >
-                Submit
-              </Button>
+          {!stepCompleted ? (
+            <div className="w-full h-full px-5 rounded-lg py-2 flex items-center justify-center">
+              <p className="text-red-500 font-semibold text-xl">
+                Please complete your lab.🚨
+              </p>
             </div>
-          </div>
+          ) : (
+            <div className="w-full h-full px-5 rounded-lg py-2 flex items-center gap-5">
+              <div className="grow shrink  rounded bg-slate-50 py-2 px-5 flex justify-center">
+                <Button
+                  type="primary"
+                  onClick={submithandler}
+                  style={{
+                    backgroundColor: "#296F9D",
+                    width: 200,
+                    height: 50,
+                    fontSize: "1.5em",
+                  }}
+                >
+                  Submit
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
+        {/* <Chat /> */}
       </div>
     </Layout>
   );
