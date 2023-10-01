@@ -21,7 +21,6 @@ const SidePanel = () => {
   };
 
   const iemail = email;
-  console.log(iemail);
 
   const openMeetingRoom = () => {
     // Open the meeting room URL in a new tab
@@ -39,13 +38,7 @@ const SidePanel = () => {
       key: "2",
       icon: <PartitionOutlined />,
       label: "Assignments",
-      onClick: () => {
-        if (!labKey) {
-          message.error("First, enroll in a lab, please!");
-        } else {
-          navigate(`#`);
-        }
-      },
+      link: "/instructor/assigments",
     },
     {
       key: "3",

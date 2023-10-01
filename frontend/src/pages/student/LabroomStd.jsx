@@ -1,22 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Steps, Spin, Button, message } from "antd";
+import { Steps, Spin, Button, message,Modal } from "antd";
 import axios from "axios";
 import Layout from "./layout";
 import DataForm from "../../components/student/Dataform";
+import Filehandle from "../Filehandle/Filehandle";
 
 function LabroomStd() {
-  const [labName, setLabName] = useState("");
+  const [labName, setLabName] = useState();
   const { id } = useParams();
   const [stepCompleted, setStepCompleted] = useState(false);
   const [LabId, setLabId] = useState("");
   const studentId = sessionStorage.getItem("userId");
+  const [meetinglink, setMeetinglink] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const uploadhandler = () => {
-    const fileUploadUrl = `/fileupload/${id}`;
-    window.location.href = fileUploadUrl;
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
   };
 
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const submithandler = () => {
     if (!LabId || !studentId) {
       message.error("Lab ID or Student ID is missing.");
@@ -51,6 +59,8 @@ function LabroomStd() {
   };
 
   const handleLabNameFetched = (name) => {
+    // setLabName(name);
+    console.log(name);
     setLabName(name);
   };
 
@@ -62,13 +72,15 @@ function LabroomStd() {
     setLabId(id);
   };
   const meetinghandler = (link) => {
-    console.log(link);
-
+    setMeetinglink(link);
   };
-const meetingjoinhandler = () => {
-   
-}
-
+  const meetingjoinhandler = () => {
+    if (meetinglink) {
+      window.open(meetinglink, "_blank");
+    } else {
+      message.error("Meeting link is not available.");
+    }
+  };
 
   return (
     <Layout>
@@ -93,6 +105,15 @@ const meetingjoinhandler = () => {
               >
                 Upload
               </Button>
+
+              <Modal
+                title="Upload Your Pdf File"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+              >
+                <Filehandle labName={labName}/>
+              </Modal>
             </div>
           </div>
         </div>

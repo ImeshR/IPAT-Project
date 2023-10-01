@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Space, Table, Button, Drawer, Form, Input, message } from "antd";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
 
 const { Column } = Table;
 
-const LabTable = ({ userEmail }) => {
+const LabTable = ({ userEmail, onLabNamesChange }) => {
   const [labrooms, setLabrooms] = useState([]);
   const [viewModalVisible, setViewModalVisible] = useState(false);
   const [selectedLabroom, setSelectedLabroom] = useState(null);
   const [isUpdateFormVisible, setUpdateFormVisible] = useState(false);
   const [updatedData, setUpdatedData] = useState(null);
-  const [newStep, setNewStep] = useState("");
   const [newStepsInput, setNewStepsInput] = useState("");
 
+  
   useEffect(() => {
     fetchLabrooms();
   }, [userEmail]);
@@ -24,6 +24,7 @@ const LabTable = ({ userEmail }) => {
       .then((response) => response.json())
       .then((data) => {
         setLabrooms(data);
+        onLabNamesChange(data);
       })
       .catch((error) => {
         console.error(error);
@@ -100,7 +101,15 @@ const LabTable = ({ userEmail }) => {
     <div className="w-full rounded-lg border py-5">
       <Table dataSource={labrooms}>
         <Column title="Name" dataIndex="name" key="name" />
-        <Column title="Description" dataIndex="description" key="description"/>
+        <Column
+          title="Date"
+          key="labdate"
+          render={(text, record) => (
+            <div className="flex flex-col gap-4">
+              {dayjs(record.labdate).format("YYYY-MM-DD")}
+            </div>
+          )}
+        />
         <Column title="Capacity" dataIndex="capacity" key="capacity" />
         <Column
           title="Enrollemnt"
@@ -113,13 +122,13 @@ const LabTable = ({ userEmail }) => {
           render={(_, record) => (
             <Space size="middle">
               <Button
-                style={{ backgroundColor: "#dcfce7" }}
+                style={{ backgroundColor: "#dcfce7", color: "#296F9D" }}
                 onClick={() => showViewModal(record)}
               >
                 View
               </Button>
               <Button
-                style={{ backgroundColor: "#4096FF" }}
+                style={{ backgroundColor: "#296F9D", color: "#ffffff" }}
                 onClick={() => showUpdateForm(record)}
               >
                 Update
@@ -133,10 +142,10 @@ const LabTable = ({ userEmail }) => {
         title="Labroom Details"
         visible={viewModalVisible}
         onClose={hideViewModal}
-        width={400}
+        width={800}
       >
         {selectedLabroom && (
-          <div>
+          <div className="flex flex-col gap-4">
             <p>
               <span className="font-semibold text-lg">Name:</span>{" "}
               {selectedLabroom.name}
@@ -149,6 +158,34 @@ const LabTable = ({ userEmail }) => {
               <span className="font-semibold text-lg">Capacity:</span>{" "}
               {selectedLabroom.capacity}
             </p>
+            <p>
+              <span className="font-semibold text-lg">Enrollment Key:</span>{" "}
+              {selectedLabroom.enrollmentkey}
+            </p>
+            <p>
+              <span className="font-semibold text-lg">Instructor Name:</span>{" "}
+              {selectedLabroom.instructorname}
+            </p>
+            <p>
+              <span className="font-semibold text-lg">Instructor Email:</span>{" "}
+              {selectedLabroom.instructoremail}
+            </p>
+            <p>
+              <span className="font-semibold text-lg">Lab Date:</span>{" "}
+              {dayjs(selectedLabroom.labdate).format("YYYY-MM-DD")}
+            </p>
+            <p>
+              <span className="font-semibold text-lg">Meeting Link:</span>{" "}
+              {selectedLabroom.meetinglink}
+            </p>
+            <p>
+              <span className="font-semibold text-lg">Steps:</span>
+            </p>
+            <ol className="list-decimal ml-5">
+              {selectedLabroom.step.map((step, index) => (
+                <li key={index}>{step}</li>
+              ))}
+            </ol>
           </div>
         )}
       </Drawer>

@@ -17,6 +17,7 @@ import Error from "./pages/404page/Error404"
 import MeetingRoom from "./pages/MeetingRoom/MeetingRoom";
 import Dashboard from "./pages/student/Dashboard";
 import IDashboard from "./pages/instructor/Dashboard";
+import ViewAssingment from "./pages/Admin/ViewAssingment";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,7 +29,6 @@ export default function App() {
         <Route index element={<Splash />} />
         <Route path="*" element={<Error />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/fileupload/:id" element={<FileHandle />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/instructor/managemnet" element={<Instructor />} />
         <Route path="/admin/labroom/management" element={<Labroom />} />
@@ -37,6 +37,7 @@ export default function App() {
         <Route path="/studnetlabroom/:id" element={<LabroomStd />} />
         <Route path="/lab/meetingroom" element={<MeetingRoom />} />
         <Route path="/instructor/dashboard/:email" element={<IDashboard />} />
+        <Route path="/instructor/assigments" element={<ViewAssingment />} />
         <Route path="/labview/:id" element={<ViewLab />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<SignIn />} />
