@@ -55,7 +55,7 @@ const SidePanel = () => {
   ];
 
   return (
-    <div className="h-screen py-2 pl-2 w-[300px]">
+    <div className="h-screen py-2 pl-2 w-[400px]">
       <div className="w-full h-full bg-[#001529] rounded-md py-2 flex flex-col justify-between">
         <div className="w-full flex flex-col">
           <div className="w-full text-white text-xl px-2 ">Hi {firstName}!</div>
