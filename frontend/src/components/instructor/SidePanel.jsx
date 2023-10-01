@@ -2,23 +2,30 @@ import React from "react";
 import user_pic from "../../assets/user_pic.jpg";
 import {
   DesktopOutlined,
-  SettingOutlined,
+  AliyunOutlined,
   HomeOutlined,
   PartitionOutlined,
 } from "@ant-design/icons";
 import { Button, Menu, message } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const SidePanel = () => {
   const labKey = sessionStorage.getItem("labKey");
   const firstName = sessionStorage.getItem("userFname");
   const navigate = useNavigate();
+  const email = sessionStorage.getItem("userEmail");
 
   const handleLogout = () => {
-    // Clear all session storage
     sessionStorage.clear();
-    // Navigate to the login page
     navigate("/login");
+  };
+
+  const iemail = email;
+  console.log(iemail);
+
+  const openMeetingRoom = () => {
+    // Open the meeting room URL in a new tab
+    window.open("/lab/meetingroom", "_blank");
   };
 
   const items = [
@@ -26,25 +33,25 @@ const SidePanel = () => {
       key: "1",
       icon: <HomeOutlined />,
       label: "Home",
-      link: "/student/dashboard",
+      link: "/instructor/dashboard/" + iemail,
     },
     {
       key: "2",
       icon: <PartitionOutlined />,
-      label: "Go Back to Labroom",
+      label: "Assignments",
       onClick: () => {
         if (!labKey) {
           message.error("First, enroll in a lab, please!");
         } else {
-          navigate(`/studnetlabroom/${labKey}`);
+          navigate(`#`);
         }
       },
     },
     {
       key: "3",
-      icon: <SettingOutlined />,
-      label: "Settings",
-      link: "#",
+      icon: <AliyunOutlined />,
+      label: "Start a Meeting",
+      onClick: openMeetingRoom, // Call the openMeetingRoom function to open in a new tab
     },
     {
       key: "4",
@@ -55,7 +62,7 @@ const SidePanel = () => {
   ];
 
   return (
-    <div className="h-screen py-2 pl-2 w-[300px]">
+    <div className="h-screen py-2 pl-2 w-[400px]">
       <div className="w-full h-full bg-[#001529] rounded-md py-2 flex flex-col justify-between">
         <div className="w-full flex flex-col">
           <div className="w-full text-white text-xl px-2 ">Hi {firstName}!</div>

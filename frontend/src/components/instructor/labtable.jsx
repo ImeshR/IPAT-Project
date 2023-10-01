@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Space, Table, Button, Modal, Form, Input,message } from 'antd';
+import React, { useState, useEffect } from "react";
+import { Space, Table, Button, Drawer, Form, Input, message } from "antd";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 const { Column } = Table;
 
@@ -7,21 +8,18 @@ const LabTable = ({ userEmail }) => {
   const [labrooms, setLabrooms] = useState([]);
   const [viewModalVisible, setViewModalVisible] = useState(false);
   const [selectedLabroom, setSelectedLabroom] = useState(null);
-  const [isUpdateFormVisible, setUpdateFormVisible] = useState(false); // Track if update form is open
-  const [updatedData, setUpdatedData] = useState(null); // Store updated data here
-  const [newStep, setNewStep] = useState('');
-  const [newStepsInput, setNewStepsInput] = useState('');
+  const [isUpdateFormVisible, setUpdateFormVisible] = useState(false);
+  const [updatedData, setUpdatedData] = useState(null);
+  const [newStep, setNewStep] = useState("");
+  const [newStepsInput, setNewStepsInput] = useState("");
 
   useEffect(() => {
-    // Fetch labroom data using the provided URL with userEmail
     fetchLabrooms();
   }, [userEmail]);
 
   const fetchLabrooms = () => {
-    // Replace this URL with your actual API endpoint
     const apiUrl = `http://localhost:5000/api/labroom/getall/${userEmail}`;
 
-    // Fetch labroom data
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
@@ -52,78 +50,76 @@ const LabTable = ({ userEmail }) => {
     setUpdateFormVisible(false);
   };
 
-
   const handleFormSubmit = (values) => {
     const apiUrl = `http://localhost:5000/api/labroom/update/${updatedData._id}`;
 
     fetch(apiUrl, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
     })
       .then((response) => {
         if (response.ok) {
-          message.success('Labroom updated successfully');
+          message.success("Labroom updated successfully");
           hideUpdateForm();
-          fetchLabrooms(); // Refresh the table data
+          fetchLabrooms();
         } else {
-          message.error('Labroom update failed. Please try again later.');
+          message.error("Labroom update failed. Please try again later.");
         }
       })
       .catch((error) => {
         console.error(error);
-        message.error('Labroom update failed. Please try again later.');
+        message.error("Labroom update failed. Please try again later.");
       });
   };
-
 
   const handleNewStepsInputChange = (e) => {
     setNewStepsInput(e.target.value);
   };
 
-  // Function to add new steps
   const addNewSteps = () => {
-    // Split the input by commas and trim spaces
     const newStepsArray = newStepsInput
-      .split(',')
+      .split(",")
       .map((step) => step.trim())
-      .filter((step) => step !== ''); // Remove empty steps
+      .filter((step) => step !== "");
 
-    // Ensure the array doesn't exceed the maximum size (20)
     if (newStepsArray.length + updatedData.step.length <= 20) {
       setUpdatedData((prevData) => ({
         ...prevData,
         step: [...prevData.step, ...newStepsArray],
       }));
-      setNewStepsInput(''); // Clear the input
+      setNewStepsInput("");
     } else {
-      // Show an error message if the array exceeds the maximum size
-      message.error('Maximum number of steps (20) exceeded.');
+      message.error("Maximum number of steps (20) exceeded.");
     }
   };
 
   return (
-    <div className="w-full border py-5">
+    <div className="w-full rounded-lg border py-5">
       <Table dataSource={labrooms}>
         <Column title="Name" dataIndex="name" key="name" />
-        <Column title="Description" dataIndex="description" key="description" />
+        <Column title="Description" dataIndex="description" key="description"/>
         <Column title="Capacity" dataIndex="capacity" key="capacity" />
-        <Column title="Enrollemnt" dataIndex="_id" key="_id" />
+        <Column
+          title="Enrollemnt"
+          dataIndex="enrollmentkey"
+          key="enrollmentkey"
+        />
         <Column
           title="Action"
           key="action"
           render={(_, record) => (
             <Space size="middle">
               <Button
-                style={{ backgroundColor: '#dcfce7' }}
+                style={{ backgroundColor: "#dcfce7" }}
                 onClick={() => showViewModal(record)}
               >
                 View
               </Button>
               <Button
-                style={{ backgroundColor: '#4096FF' }}
+                style={{ backgroundColor: "#4096FF" }}
                 onClick={() => showUpdateForm(record)}
               >
                 Update
@@ -133,105 +129,176 @@ const LabTable = ({ userEmail }) => {
         />
       </Table>
 
-      <Modal
+      <Drawer
         title="Labroom Details"
         visible={viewModalVisible}
-        onCancel={hideViewModal}
-        footer={null}
+        onClose={hideViewModal}
+        width={400}
       >
         {selectedLabroom && (
           <div>
-            <p>Name: {selectedLabroom.name}</p>
-            <p>Description: {selectedLabroom.description}</p>
-            <p>Capacity: {selectedLabroom.capacity}</p>
-            {/* Add other fields here */}
+            <p>
+              <span className="font-semibold text-lg">Name:</span>{" "}
+              {selectedLabroom.name}
+            </p>
+            <p>
+              <span className="font-semibold text-lg">Description:</span>{" "}
+              {selectedLabroom.description}
+            </p>
+            <p>
+              <span className="font-semibold text-lg">Capacity:</span>{" "}
+              {selectedLabroom.capacity}
+            </p>
           </div>
         )}
-      </Modal>
+      </Drawer>
 
-      {/* Update Form */}
-      <Modal
+      <Drawer
         title="Update Labroom"
-        visible={isUpdateFormVisible}
-        onCancel={hideUpdateForm}
-        footer={null}
+        open={isUpdateFormVisible}
+        onClose={hideUpdateForm}
+        width={800}
       >
         {updatedData && (
           <Form
-          name="updateLabroomForm"
-          onFinish={handleFormSubmit}
-          initialValues={updatedData}
+            name="updateLabroomForm"
+            onFinish={handleFormSubmit}
+            initialValues={updatedData}
           >
+            <Form.Item
+              label="Name"
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input labroom name!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="Enrollment Key"
+              name="enrollmentkey"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input labroom enrollment key!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
             <Form.Item
               label="Description"
               name="description"
-              rules={[{ required: true, message: 'Please input the description!' }]}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input labroom description!",
+                },
+              ]}
             >
               <Input />
             </Form.Item>
+
             <Form.Item
               label="Capacity"
               name="capacity"
-              rules={[{ required: true, message: 'Please input the capacity!' }]}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input labroom capacity!",
+                },
+              ]}
             >
               <Input />
             </Form.Item>
-            {/* for enrollmentkey */}
+
             <Form.Item
-                label="Enrollment Key"
-                name="enrollmentkey"
-                rules={[{ required: true, message: 'Please input the enrollment key!' }]}
+              label="Instructor Name"
+              name="instructorname"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input labroom instructor name!",
+                },
+              ]}
             >
-                <Input />
+              <Input />
             </Form.Item>
-            {/* for instructorname */}
+            {/* labdate */}
             <Form.Item
-                label="Instructor Name"
-                name="instructorname"
-                rules={[{ required: true, message: 'Please input the instructor name!' }]}
+              label="Date"
+              name="labdate"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input labroom date!",
+                },
+              ]}
             >
-                <Input />
+              <Input />
             </Form.Item>
-            {/* for labdate */}
+
             <Form.Item
-                label="Lab Date"
-                name="labdate"
-                rules={[{ required: true, message: 'Please input the lab date!' }]}
+              label="Meeting Link"
+              name="meetinglink"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input labroom meeting link!",
+                },
+              ]}
             >
-                <Input />
+              <Input />
             </Form.Item>
+
             {updatedData.step.map((step, index) => (
               <Form.Item
                 key={index}
                 label={`Step ${index + 1}`}
-                name={['step', index]}
+                name={["step", index]} // Set the name to an array path
                 rules={[
-                  { required: true, message: 'Please input the step!' },
+                  {
+                    required: true,
+                    message: "Please input a step!",
+                  },
                 ]}
               >
-                <Input />
+                <Input placeholder={`Step ${index + 1}`} />
               </Form.Item>
             ))}
 
-            {/* New Steps Input Field */}
-            <Form.Item label="New Steps">
-              <Input.TextArea
-                rows={4}
-                value={newStepsInput}
-                onChange={handleNewStepsInputChange}
-                placeholder="Enter new steps, separated by commas"
-              />
-              <Button type="dashed" onClick={addNewSteps}>
-                Add New Steps
-              </Button>
+            <Form.Item>
+              <div className="flex flex-row gap-4">
+                <Input
+                  placeholder="Add new steps"
+                  value={newStepsInput}
+                  onChange={handleNewStepsInputChange}
+                />
+                <Button onClick={addNewSteps}>Add</Button>
+              </div>
             </Form.Item>
 
-            <Button type="primary" htmlType="submit" style={{ width: '100%', backgroundColor: '#4096FF' }}>
-              Update
-            </Button>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{
+                  width: "100%",
+                  backgroundColor: "#296F9D",
+                  height: "40px",
+                  fontSize: "1.4em",
+                }}
+              >
+                Update
+              </Button>
+            </Form.Item>
           </Form>
         )}
-      </Modal>
+      </Drawer>
     </div>
   );
 };

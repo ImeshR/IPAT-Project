@@ -1,4 +1,5 @@
 import User from "../../models/Users/user.js";
+import EnrolledLab from "../../models/Users/enrolledlab.js";
 
 export const updateinstructor = async (req, res, next) => {
     const { id } = req.params;
@@ -22,3 +23,18 @@ export const updateinstructor = async (req, res, next) => {
         res.status(500).json("not found");
       });
   };
+
+  export const getenrolledstudents = async (req, res, next) => {
+    const { id } = req.params;
+
+    //get completed labs
+    const completed = await EnrolledLab.find({
+      labId: id
+    });
+    
+    if (!completed) {
+      return res.status(404).json("not found");
+    }else{
+      return res.status(200).json(completed);
+    }
+  }

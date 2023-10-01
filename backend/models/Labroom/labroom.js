@@ -55,6 +55,12 @@ const LabroomSchema = new mongoose.Schema({
         type: [String], // Define "step" as an array of strings
         default: [],    // Set a default empty array if needed
     },
+    meetinglink: {
+        type: String,
+        required: false,
+        trim: true,
+        minlength: 3,
+    },
 }, { timestamps: true });
 
 const Labroom = mongoose.model("Labroom", LabroomSchema);

@@ -10,7 +10,7 @@ function formatDateToYYYYMMDD(dateString) {
   return `${year}-${month}-${day}`;
 }
 
-function Dataform({ id, onStepCompletion, onLabIdFetched }) {
+function Dataform({ id, onStepCompletion, onLabIdFetched, onMeetingRoom }) {
   const [labroomData, setLabroomData] = useState({
     name: "",
     description: "",
@@ -19,6 +19,7 @@ function Dataform({ id, onStepCompletion, onLabIdFetched }) {
     instructoremail: "",
     labdate: "",
     step: [],
+    meetinglink: "",
   });
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -32,6 +33,7 @@ function Dataform({ id, onStepCompletion, onLabIdFetched }) {
         response.data.labdate = formatDateToYYYYMMDD(response.data.labdate);
         setLabroomData(response.data);
         onLabIdFetched(response.data._id);
+        onMeetingRoom(response.data.meetinglink);
         setLoading(false);
       })
       .catch((error) => {

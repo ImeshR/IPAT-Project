@@ -9,7 +9,6 @@ import AdminDashboard from "./pages/Admin/dashboard";
 import Instructor from "./pages/Admin/instructor";
 import Labroom from "./pages/Admin/labroom";
 import Students from "./pages/Admin/students";
-import InstructorDashboard from "./instructorDashboard/InstructorDashboard";
 import SignIn from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import LabroomStd from "./pages/student/LabroomStd";
@@ -17,6 +16,7 @@ import ViewLab from "./pages/instructor/ViewLab";
 import Error from "./pages/404page/Error404"
 import MeetingRoom from "./pages/MeetingRoom/MeetingRoom";
 import Dashboard from "./pages/student/Dashboard";
+import IDashboard from "./pages/instructor/Dashboard";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,11 +35,8 @@ export default function App() {
         <Route path="/admin/students/management" element={<Students />} />
         <Route path="/student/dashboard" element={<Dashboard />} />
         <Route path="/studnetlabroom/:id" element={<LabroomStd />} />
-        <Route path="/student/meetingroom" element={<MeetingRoom />} />
-        <Route
-          path="/InstructorDashboard/:email"
-          element={<InstructorDashboard />}
-        />
+        <Route path="/lab/meetingroom" element={<MeetingRoom />} />
+        <Route path="/instructor/dashboard/:email" element={<IDashboard />} />
         <Route path="/labview/:id" element={<ViewLab />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<SignIn />} />

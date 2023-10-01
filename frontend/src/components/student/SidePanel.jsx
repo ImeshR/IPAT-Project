@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const SidePanel = () => {
   const labKey = sessionStorage.getItem("labKey");
-  const firstName = sessionStorage.getItem("userFname");
+  const firstName = sessionStorage.getItem("userFName");
   const navigate = useNavigate();
 
   const handleLogout = () => {

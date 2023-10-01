@@ -16,6 +16,7 @@ export const updatelabroom = async (req, res, next) => {
     instructoremail: req.body.instructoremail,
     labdate: req.body.labdate,
     step: req.body.step,
+    meetinglink: req.body.meetinglink,
   };
   const update = Labroom.findByIdAndUpdate(id, updatelab, { new: true })
     .then((update) => {

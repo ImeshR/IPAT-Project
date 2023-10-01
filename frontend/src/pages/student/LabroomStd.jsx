@@ -13,33 +13,25 @@ function LabroomStd() {
   const studentId = sessionStorage.getItem("userId");
 
   const uploadhandler = () => {
-    // Construct the URL with the labName as a query parameter
     const fileUploadUrl = `/fileupload/${id}`;
     window.location.href = fileUploadUrl;
   };
 
-  const meetinghandler = () => {
-    const url = "/student/meetingroom";
-    window.open(url, "_blank");
-  };
-
   const submithandler = () => {
-    // Check if the labId and studentId are available
     if (!LabId || !studentId) {
       message.error("Lab ID or Student ID is missing.");
       return;
     }
 
-    // Prepare the request body
     const requestBody = {
       labId: LabId,
     };
-
-    // Make the PUT request to update the status
     axios
-      .put(`http://localhost:5000/api/student/enroll/updatestatus/${studentId}`, requestBody)
+      .put(
+        `http://localhost:5000/api/student/enroll/updatestatus/${studentId}`,
+        requestBody
+      )
       .then((response) => {
-        // Check for a success response from the server
         if (response.status === 200) {
           message.success("Lab successfully submitted.");
 
@@ -52,7 +44,9 @@ function LabroomStd() {
       })
       .catch((error) => {
         console.error("Error submitting lab:", error);
-        message.error("An error occurred while submitting the lab. Please try again later.");
+        message.error(
+          "An error occurred while submitting the lab. Please try again later."
+        );
       });
   };
 
@@ -67,6 +61,14 @@ function LabroomStd() {
   const handleLabIdFetched = (id) => {
     setLabId(id);
   };
+  const meetinghandler = (link) => {
+    console.log(link);
+
+  };
+const meetingjoinhandler = () => {
+   
+}
+
 
   return (
     <Layout>
@@ -76,10 +78,13 @@ function LabroomStd() {
           onLabNameFetched={handleLabNameFetched}
           onStepCompletion={handleStepCompletion}
           onLabIdFetched={handleLabIdFetched}
+          onMeetingRoom={meetinghandler}
         />
         <div className="flex-grow w-full p-4 px-8">
           <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
-            <div className="text-xl whitespace-nowrap">Upload Your Answer :</div>
+            <div className="text-xl whitespace-nowrap">
+              Upload Your Answer :
+            </div>
             <div className="grow shrink border rounded bg-slate-50 py-2 px-5">
               <Button
                 type="primary"
@@ -94,11 +99,13 @@ function LabroomStd() {
 
         <div className="flex-grow w-full p-4 px-8">
           <div className="w-full h-full px-5 rounded-lg py-2 border flex items-center gap-5">
-            <div className="text-xl whitespace-nowrap">Meeting with Instructor :</div>
+            <div className="text-xl whitespace-nowrap">
+              Meeting with Instructor :
+            </div>
             <div className="grow shrink  rounded bg-slate-50 py-2 px-5">
               <Button
                 type="primary"
-                onClick={meetinghandler}
+                onClick={meetingjoinhandler}
                 style={{ backgroundColor: "#296F9D" }}
               >
                 Join Meeting

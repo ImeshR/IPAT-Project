@@ -1,5 +1,5 @@
 import React from "react";
-import SidePanel from "../../components/student/SidePanel";
+import SidePanel from "../../components/instructor/SidePanel";
 
 const Layout = ({ children }) => {
   return (

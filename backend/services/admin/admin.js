@@ -15,6 +15,7 @@ export const createlabroom = async (req, res, next) => {
       instructoremail,
       labdate,
       step,
+      meetinglink
     } = req.body;
 
     const newLabroom = new Labroom({
@@ -26,6 +27,7 @@ export const createlabroom = async (req, res, next) => {
       instructoremail,
       labdate,
       step,
+      meetinglink
     });
 
     await newLabroom.validate();
@@ -64,6 +66,7 @@ export const updatelabroom = async (req, res, next) => {
       instructoremail: req.body.instructoremail,
       labdate: req.body.labdate,
       step: req.body.step,
+      meetinglink: req.body.meetinglink
     };
 
     const update = await Labroom.findByIdAndUpdate(id, updatelab, { new: true });

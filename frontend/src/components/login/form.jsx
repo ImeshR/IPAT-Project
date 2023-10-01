@@ -22,7 +22,8 @@ const FormComponent = () => {
           sessionStorage.setItem('userId', response.data._id);
           sessionStorage.setItem('userFname', response.data.firstname);
           sessionStorage.setItem('userLName', response.data.lastname);
-          const instructorDashboardURL = `/instructordashboard/${response.data.email}`;
+          sessionStorage.setItem('userEmail', response.data.email);
+          const instructorDashboardURL = `/instructor/dashboard/${response.data.email}`;
           window.location.href = instructorDashboardURL;
         } else {
           message.error('Login failed.');
