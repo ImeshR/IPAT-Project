@@ -2,74 +2,28 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { storage } from "../../firebase-config";
 import { ref, uploadBytesResumable } from "firebase/storage";
-import { message, Button, Input, DatePicker, Tooltip } from "antd";
+import { message, Button, Input, Tooltip } from "antd";
 const { TextArea } = Input;
-const formatNumber = (value) => new Intl.NumberFormat().format(value);
-const NumericInput = (props) => {
-  const { value, onChange } = props;
-  const handleChange = (e) => {
-    const { value: inputValue } = e.target;
-    const reg = /^-?\d*(\.\d*)?$/;
-    if (reg.test(inputValue) || inputValue === "" || inputValue === "-") {
-      onChange(inputValue);
-    }
-  };
 
-  // '.' at the end or only '-' in the input box.
-  const handleBlur = () => {
-    let valueTemp = value;
-    if (value.charAt(value.length - 1) === "." || value === "-") {
-      valueTemp = value.slice(0, -1);
-    }
-    onChange(valueTemp.replace(/0*(\d+)/, "$1"));
-  };
-  const title = value ? (
-    <span className="numeric-input-title">
-      {value !== "-" ? formatNumber(Number(value)) : "-"}
-    </span>
-  ) : (
-    "Input a number"
-  );
-  return (
-    <Tooltip
-      trigger={["focus"]}
-      title={title}
-      placement="topLeft"
-      overlayClassName="numeric-input"
-    >
-      <Input
-        {...props}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        placeholder="Input a number"
-        maxLength={16}
-      />
-    </Tooltip>
-  );
-};
-function Filehandle({labName}) {
+function Filehandle({ labName }) {
   const [file, setFile] = useState("");
   const [student, setStudent] = useState("");
   const [lab, setLab] = useState();
-  const [date, setDate] = useState("");
   const [comment, setComment] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
   const key = "updatable";
   const [value, setValue] = useState(labName);
-  const onChange = (date, dateString) => {
-    setDate(dateString);
-  };
 
-  //function to upload file to firebase
+  // Function to upload file to Firebase
   const uploadFile = (e) => {
     if (!file) {
       messageApi.error({
-        content: `Please fill insert a file`,
+        content: `Please insert a file`,
         key,
         duration: 2,
       });
       return;
-    } else if (!student || !value || !date || !comment) {
+    } else if (!student || !value || !comment) {
       messageApi.error({
         content: `Please fill all the fields`,
         key,
@@ -77,16 +31,18 @@ function Filehandle({labName}) {
       });
       return;
     } else {
-      
-      const filename = `${student}_${value}_${date}`;
+      // Get the current date in yyyy-mm-dd format
+      const currentDate = new Date().toISOString().split("T")[0];
+
+      const filename = `${student}_${value}_${currentDate}`;
       const filepath = `files/${value}/${filename}`;
-     
+
       console.log(filepath);
-    
+
       const storageRef = ref(storage, filepath);
 
       const uploadTask = uploadBytesResumable(storageRef, file);
-      
+
       uploadTask.on("state_changed", (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -100,7 +56,8 @@ function Filehandle({labName}) {
         });
       });
     }
-  };
+  }
+
   return (
     <div className="border rounded bg-slate-100 w-full flex flex-col justify-center items-center py-4">
       {contextHolder}
@@ -109,27 +66,18 @@ function Filehandle({labName}) {
           placeholder="Student Name"
           onChange={(e) => setStudent(e.target.value)}
           required
-          
         />
         <Input
           placeholder="Lab Number"
           onChange={(e) => setValue(e.target.value)}
           value={labName}
         />
-        {/* <NumericInput
-          style={{
-            width: 120,
-          }}
-          value={value}
-          onChange={setValue}
-        /> */}
         <TextArea
           rows={4}
           placeholder="Comments"
           maxLength={6}
           onChange={(e) => setComment(e.target.value)}
         />
-        <DatePicker onChange={onChange} />
         <Input type="file" onChange={(e) => setFile(e.target.files[0])} />
         <Button
           type="primary"

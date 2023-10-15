@@ -280,11 +280,11 @@ const LabTable = ({ userEmail, onLabNamesChange }) => {
             </Form.Item>
 
             <Form.Item
-              label="Meeting Link"
+              label="Meeting Link Can be added later"
               name="meetinglink"
               rules={[
                 {
-                  required: true,
+                  required: false,
                   message: "Please input labroom meeting link!",
                 },
               ]}

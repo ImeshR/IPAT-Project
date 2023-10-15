@@ -41,13 +41,13 @@ const NewAdd = () => {
       <div className="w-full h-[100px] flex items-center pl-5">
         <Button
           type="primary"
-          style={{ backgroundColor: "#1677FF" }}
+          style={{ backgroundColor: "#296F9D" }}
           onClick={showForm}
         >
           Create New
         </Button>
       </div>
-
+ 
       <Modal
         title="Create New Course"
         visible={formVisible}
