@@ -49,39 +49,90 @@ export const checkenroll = async (req, res, next) => {
   //check if enrollment key is valid
   const labroom = await Labroom.findOne({ enrollmentkey: key });
 
-  if(!labroom){
+  if (!labroom) {
     return res.status(200).json("invalid");
-  }
-
-  if (labroom) {
-    //check if student already completed the lab
+  } else {
+    //check enrollment lab already exists
     const enrolledlab = await EnrolledLab.findOne({
       labId: labroom._id,
       studentId: req.body.studentId,
     });
 
-    //check status of enrolled lab is completed
-    if (enrolledlab && enrolledlab.status == "completed") {
-      return res.status(200).json("completed");
-    }else{
-      if (labroom || enrolledlab.status != "completed") {
-        const enrolledlab = new EnrolledLab({
-          studentId: req.body.studentId,
-          labId: labroom._id,
-          name: labroom.name,
-          description: labroom.description,
-          instructoremail: labroom.instructoremail,
-          labdate: labroom.labdate,
-          status: "pending",
-        });
-        enrolledlab.save();
-      }
-    
-      if (labroom) {
-        return res.status(200).json("valid");
+    if (!enrolledlab) {
+      //save enrolled lab
+      const enrolledlab = new EnrolledLab({
+        studentId: req.body.studentId,
+        labId: labroom._id,
+        name: labroom.name,
+        description: labroom.description,
+        instructoremail: labroom.instructoremail,
+        labdate: labroom.labdate,
+        status: "pending",
+      });
+      enrolledlab.save();
+    } else {
+      //check if student already completed the lab
+      if (enrolledlab.status == "completed") {
+        return res.status(200).json("completed");
       }
     }
+
+    return res.status(200).json("valid");
   }
+
+  // if (labroom) {
+  //   //check if student already completed the lab
+  //   const enrolledlab = await EnrolledLab.findOne({
+  //     labId: labroom._id,
+  //     studentId: req.body.studentId,
+  //   });
+
+  //   //check status of enrolled lab is completed
+  //   if (enrolledlab && enrolledlab.status == "completed") {
+  //     return res.status(200).json("completed");
+  //   }else{
+  //     if (labroom || enrolledlab.status != "completed") {
+
+  //       // check if enrolledLab already exists
+  //       const enrolledlabalready = await EnrolledLab.findOne({
+  //         labId: labroom._id,
+  //         studentId: req.body.studentId,
+  //       });
+
+  //       // if (enrolledlabalready) {
+  //       //   return res.status(200).json("already");
+  //       // }
+  //       // else{
+  //       //   //save enrolled lab
+  //       //   const enrolledlab = new EnrolledLab({
+  //       //     studentId: req.body.studentId,
+  //       //     labId: labroom._id,
+  //       //     name: labroom.name,
+  //       //     description: labroom.description,
+  //       //     instructoremail: labroom.instructoremail,
+  //       //     labdate: labroom.labdate,
+  //       //     status: "pending",
+  //       //   });
+  //       //   enrolledlab.save();
+  //       // }
+
+  //       // const enrolledlab = new EnrolledLab({
+  //       //   studentId: req.body.studentId,
+  //       //   labId: labroom._id,
+  //       //   name: labroom.name,
+  //       //   description: labroom.description,
+  //       //   instructoremail: labroom.instructoremail,
+  //       //   labdate: labroom.labdate,
+  //       //   status: "pending",
+  //       // });
+  //       // enrolledlab.save();
+  //     }
+
+  //     if (labroom) {
+  //       return res.status(200).json("valid");
+  //     }
+  //   }
+  // }
 };
 
 //update enrolled lab status
